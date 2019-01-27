@@ -1,24 +1,29 @@
+import configparser
 import subprocess
 import time
 
 import psutil
 
-network_interface = 'eno1'
+# Import config file
+config = configparser.RawConfigParser(allow_no_value=True)
+config.read("config.ini")
 
-drives = {'/dev/sdb',
-          '/dev/sdc',
-          '/dev/sdd',
-          '/dev/sde',
-          }
+# Read config file
+network_interface = config.get('Network', 'Interface')
+drives = config.get('HDD', 'Monitored').split(',')
+cpu_Threshold = config.get('CPU', 'Threshold')
 
 
 def check_drive_status():
     for drive in drives:
         result = str(subprocess.check_output(['hdparm', '-C', drive]))
-        if "standby" in result:
-            print(drive, " \tstandby")
-        else:
+        if "active" in result:
             print(drive, " \tactive")
+            return 0
+        else:
+            print(drive, " \tstandby")
+    return 1
+
 
 
 def check_cpu_status():
@@ -26,18 +31,19 @@ def check_cpu_status():
 
 
 def check_network_status():
-    send1 = psutil.net_io_counters(pernic=True)[network_interface][0]
-    recv1 = psutil.net_io_counters(pernic=True)[network_interface][1]
+    tx1 = psutil.net_io_counters(pernic=True)[network_interface][0]
+    rx1 = psutil.net_io_counters(pernic=True)[network_interface][1]
     time.sleep(1)
-    send2 = psutil.net_io_counters(pernic=True)[network_interface][0]
-    recv2 = psutil.net_io_counters(pernic=True)[network_interface][1]
+    tx2 = psutil.net_io_counters(pernic=True)[network_interface][0]
+    rx2 = psutil.net_io_counters(pernic=True)[network_interface][1]
 
-    tx_speed = int((send2 - send1) / 1000.0)
-    rx_speed = int((recv2 - recv1) / 1000.0)
+    tx_speed = int((tx2 - tx1) / 1000.0)
+    rx_speed = int((rx2 - rx1) / 1000.0)
 
     print("tx: \t", tx_speed, "\tkbps")
     print("rx: \t", rx_speed, "\tkbps")
 
-check_drive_status()
+
+value = check_drive_status()
 check_cpu_status()
 check_network_status()
