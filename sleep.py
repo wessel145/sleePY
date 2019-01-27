@@ -5,16 +5,16 @@ import psutil
 
 network_interface = 'eno1'
 
-drives = {'dev/sdb',
-          'dev/sdc',
-          'dev/sdd',
-          'dev/sde',
+drives = {'/dev/sdb',
+          '/dev/sdc',
+          '/dev/sdd',
+          '/dev/sde',
           }
 
 
 def check_drive_status():
     for drive in drives:
-        result = str(subprocess.check_output(['hdparm', '-C', '/dev/sde']))
+        result = str(subprocess.check_output(['hdparm', '-C', drive]))
         if "standby" in result:
             print(drive, " standby")
         else:
@@ -38,5 +38,4 @@ def check_network_status():
     print("tx: ", tx_speed, "\tkbps")
     print("rx: ", rx_speed, "\tkbps")
 
-check_network_status()
-
+check_drive_status()
