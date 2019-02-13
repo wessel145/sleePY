@@ -14,7 +14,8 @@ Currently monitored:
 
 ## Installation
 ```git clone https://github.com/wessel145/sleePY.git```   
-```cd sleePY && pip3 install -r requirements.txt  ```
+```cd sleePY && pip3 install -r requirements.txt  ```  
+```pip3 install multiping```
 
 - Rename the file config-default.ini to config.ini and add your parameters in the config file
 
