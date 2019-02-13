@@ -3,6 +3,7 @@ import subprocess
 import time
 
 import psutil
+from multiping import MultiPing
 
 # Import config file
 config = configparser.RawConfigParser(allow_no_value=True)
@@ -11,7 +12,8 @@ config.read("config.ini")
 # Read config file
 network_interface = config.get('Network', 'Interface')
 drives = config.get('HDD', 'Monitored').split(',')
-cpu_Threshold = config.get('CPU', 'Threshold')
+hosts = config.get('PING', 'Hosts').split(',')
+cpu_Threshold = int(config.get('CPU', 'Threshold'))
 
 
 def check_drive_status():
@@ -27,7 +29,13 @@ def check_drive_status():
 
 
 def check_cpu_status():
-    print("cpu: \t", psutil.cpu_percent(interval=0.3), "\t%")
+    load = psutil.cpu_percent(interval=0.3)
+    print("cpu: \t", load, "\t%")
+    if load > cpu_Threshold:
+        print("CPU usage above Threshold, Load: ", load, " Threshold: ", cpu_Threshold)
+        return 0
+    else:
+        return 1
 
 
 def check_network_status():
@@ -44,6 +52,17 @@ def check_network_status():
     print("rx: \t", rx_speed, "\tkbps")
 
 
+def pings():
+    mp = MultiPing(hosts)
+    mp.send()
+    responses, no_responses = mp.receive(1)
+    for host in responses:
+        print("Host: ", host, " is online")
+    for host in no_responses:
+        print("Host: ", host, " is offline")
+
+
 value = check_drive_status()
 check_cpu_status()
 check_network_status()
+pings()
