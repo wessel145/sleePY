@@ -21,7 +21,7 @@ Currently monitored:
 
 ToDo:
 
--[ ] Actually put to sleep when thresholds are not met
--[ ] Integrate different sleep states (hibernate, suspend, shutdown)
--[ ] Create service for repeating
+-[ ] Actually put to sleep when thresholds are not met  
+-[ ] Integrate different sleep states (hibernate, suspend, shutdown)  
+-[ ] Create service for repeating  
 
