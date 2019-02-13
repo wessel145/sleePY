@@ -9,7 +9,14 @@ Currently monitored:
 - HDD status (spin up/spun down)
 - CPU Load
 - Network load (Up- and Download)
+- Online hosts
 
+
+## Installation
+```git clone https://github.com/wessel145/sleePY.git```   
+```cd sleePY && pip3 install -r requirements.txt  ```
+
+- Rename the file config-default.ini to config.ini and add your parameters in the config file
 
 ToDo:
 
