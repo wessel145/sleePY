@@ -16,10 +16,11 @@ def wake():
 if __name__ == "__main__":
     solarthres = config.get('WAKE', 'Solarthres')
     while True:
-        onlinehosts = Checks.pings()
         solarwatt = Checks.getSolar()
-        if onlinehosts() == 0:
+        if Checks.pings() == 0:
             print("some hosts online")
-        if solarwatt > solarthres:
+        if (solarwatt) > int(solarthres):
             print("enough energy is generated")
+        else:
+            print(solarwatt, solarthres)
         time.sleep(900)
