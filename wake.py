@@ -9,12 +9,12 @@ config = configparser.RawConfigParser(allow_no_value=True)
 config.read("config.ini")
 
 def wake():
-    mac = config.get('SERVER', 'Mac')
+    mac = config.get('WAKE', 'Mac')
     send_magic_packet(mac)
 
 
 if __name__ == "__main__":
-    solarthres = config.get('SERVER', 'Solarthres')
+    solarthres = config.get('WAKE', 'Solarthres')
     while True:
         onlinehosts = Checks.pings()
         solarwatt = Checks.getSolar()
