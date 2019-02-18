@@ -17,10 +17,15 @@ if __name__ == "__main__":
     while True:
         onlinehosts = Checks.pings()
         solarwatt = Checks.getSolar()
-        if onlinehosts == 1:
+        if onlinehosts == 0:
             print("some hosts online")
-        if solarwatt > solarthres:
-            print("enough energy is generated")
+            if solarwatt > solarthres:
+                print("enough energy is generated")
+                wake()
+            else:
+                print("not enough energy is generated: " + str(solarwatt) + " watt")
+
         else:
-            print("not enough energy is generated")
+            print("no hosts are online")
+        print("Sleeping for 15 minutes")
         time.sleep(900)
