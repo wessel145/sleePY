@@ -12,15 +12,15 @@ def wake():
     mac = config.get('WAKE', 'Mac')
     send_magic_packet(mac)
 
-
 if __name__ == "__main__":
-    solarthres = config.get('WAKE', 'Solarthres')
+    solarthres = int(config.get('WAKE', 'Solarthres'))
     while True:
+        onlinehosts = Checks.pings()
         solarwatt = Checks.getSolar()
-        if Checks.pings() == 0:
+        if onlinehosts == 1:
             print("some hosts online")
-        if (solarwatt) > int(solarthres):
+        if solarwatt > solarthres:
             print("enough energy is generated")
         else:
-            print(solarwatt, solarthres)
+            print("not enough energy is generated")
         time.sleep(900)
