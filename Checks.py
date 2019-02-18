@@ -11,7 +11,7 @@ config = configparser.RawConfigParser(allow_no_value=True)
 config.read("config.ini")
 
 # Read config file
-network_interface = config.get('Network', 'Interface')
+network_interface = config.get('NETWORK', 'Interface')
 drives = config.get('HDD', 'Monitored').split(',')
 hosts = config.get('PING', 'Hosts').split(',')
 cpu_Threshold = int(config.get('CPU', 'Threshold'))
