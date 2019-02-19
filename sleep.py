@@ -1,4 +1,5 @@
 import configparser
+import subprocess
 import time
 
 import Checks
@@ -10,8 +11,9 @@ config.read("config.ini")
 
 def hibernate():
     print("going to sleep! bye")
+    Checks.pushover("Server going to sleep")
     # Actual shutdown command (make sure command is in visudo)
-    # subprocess.call(["sudo", "systemctl", "hibernate"])
+    subprocess.call(["sudo", "systemctl", "hibernate"])
 
 
 if __name__ == "__main__":
@@ -22,8 +24,8 @@ if __name__ == "__main__":
         netidle = Checks.check_network_status()
         hostsoffline = Checks.pings()
         solarvalue = Checks.getSolar()
-        # Checks for debug
-        # print(hddidle, cpuidle, netidle, hostsoffline)
+        # Debug
+        # print(hddidle, cuidle, netidle, hosptsoffline)
         # If current generated Watts is lower than thres:
         if solarthres > solarvalue:
             # If CPU/HDD/NETWORK is idle & All hosts are offline

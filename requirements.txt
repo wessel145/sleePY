@@ -1,3 +1,6 @@
 configparser
 multiping
 psutil
+python-pushover
+wakeonlan
+pymysql

@@ -6,6 +6,7 @@ import psutil
 # Import config file
 import pymysql
 from multiping import MultiPing
+from pushover import init, Client
 
 config = configparser.RawConfigParser(allow_no_value=True)
 config.read("config.ini")
@@ -17,7 +18,13 @@ hosts = config.get('PING', 'Hosts').split(',')
 cpu_Threshold = int(config.get('CPU', 'Threshold'))
 tx_Threshold = int(config.get('NETWORK', 'Upload_thres'))
 rx_Threshold = int(config.get('NETWORK', 'Download_thres'))
+pushover_token = config.get('PUSHOVER', 'Token')
+pushover_client = config.get('PUSHOVER', 'Client')
 
+
+def pushover(message):
+    init(pushover_token)
+    Client(pushover_client).send_message(message, title="SleePY")
 
 def check_drive_status():
     for drive in drives:
