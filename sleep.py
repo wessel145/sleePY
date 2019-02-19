@@ -1,6 +1,7 @@
 import configparser
 import os
 import subprocess
+import sys
 import time
 
 import Checks
@@ -39,5 +40,7 @@ if __name__ == "__main__":
                 break
         else:
             print("Current solar generation: " + str(solarvalue) + " watts, threshold: " + str(solarthres))
+            sys.stdout.flush()
         print("Sleeping for 15 minutes...")
+        sys.stdout.flush()
         time.sleep(900)
