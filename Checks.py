@@ -1,4 +1,5 @@
 import configparser
+import os
 import subprocess
 import time
 
@@ -8,8 +9,12 @@ import pymysql
 from multiping import MultiPing
 from pushover import init, Client
 
+project_dir = os.path.dirname(os.path.abspath(__file__))
+config_location = os.path.join(project_dir, 'config.ini')
+
+# Import config file
 config = configparser.RawConfigParser(allow_no_value=True)
-config.read("config.ini")
+config.read(config_location)
 
 # Read config file
 network_interface = config.get('NETWORK', 'Interface')

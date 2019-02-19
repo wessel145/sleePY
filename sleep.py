@@ -1,12 +1,16 @@
 import configparser
+import os
 import subprocess
 import time
 
 import Checks
 
+project_dir = os.path.dirname(os.path.abspath(__file__))
+config_location = os.path.join(project_dir, 'config.ini')
+
 # Import config file
 config = configparser.RawConfigParser(allow_no_value=True)
-config.read("config.ini")
+config.read(config_location)
 
 
 def hibernate():
