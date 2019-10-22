@@ -1,6 +1,8 @@
-#sleePY
+DEPRECIATED! 
 
-##This project is currently in development and far from finished
+# sleePY
+
+## his project is currently in development and far from finished
 
 SleePY is a tool that monitors server resources and puts the system to sleep when possible. A seperate Wake On Lan script will become available soon.
 
